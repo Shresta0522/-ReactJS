@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+    <title>
+        Hello
+    </title>
+    <style></style>
+    <link rel="stylesheet" href="m11.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+
+    
+</head>
+<body style>
+    <div  class="row" style=" margin: 10%;">
+        <div class="column">
+          <div class="card">
+            <h3>Body Mass Calculator</h3>
+            <div  id="bmicalculator"></div>
+            
+          </div>
+        </div>
+      
+        <div class="column">
+          <div class="card">
+            <h3>Simple Calculator</h3>
+            <div id="simplecalculator" ></div><br>
+          </div>
+          
+        </div>
+      </div>
+    
+    <script type="text/babel">
+        
+        class Bmi extends React.Component{
+            
+            render() {
+                return (
+                <div id="body">
+                    <br/>
+                    <br/>
+                    <input id="weight" name="weight"placeholder="Enter  Weight" type="number" />
+                    <br/>
+                    <br/>
+                    <input id="height" name="height" placeholder="Enter Height in ft" type="number" />
+                    <br/>
+                    <br/>
+                    <button id="submit" class="btn btn-success" onClick={this.calculateBMI}>Calculate</button><br/>
+                    <br/>
+                    <button id="ans2" class="btn btn-outline-dark" type="button" ></button> 
+            
+                    
+
+                </div>
+
+                );
+            }
+             
+            calculateBMI() { 
+
+                const weight=document.getElementsByName("weight")[0].value;
+                const height=document.getElementsByName("height")[0].value;
+
+                var bmi = (weight / ((height/3.281) *(height/3.281)));
+
+                var result= document.getElementById("ans2")
+
+                if (height === "" || isNaN(height)) { 
+                    result.innerHTML = "Provide a valid Height!"; 
+                }
+                else if (weight === "" || isNaN(weight)) {
+                result.innerHTML = "Provide a valid Weight!"; 
+                }       
+                else 
+                {
+
+                    if (bmi < 16) result.innerHTML = 
+                    'Under Weight :'+ bmi;
+
+                    else if (bmi >16 && bmi < 25)  
+                    result.innerHTML =  
+                    'Normal :'+ bmi;
+
+                    else 
+                    result.innerHTML = 
+                    'Over Weight :'+ bmi; 
+                }
+            }
+
+        }
+        ReactDOM.render(<Bmi />,document.querySelector("#bmicalculator"));
+
+
+        
+
+    
+        class Calci extends React.Component{
+            
+            render() {
+                return (
+                    <div  id="body1">
+                        <br/>
+                        <br/>
+                        <input id="num1" name="n1" placeholder="Enter First digit" type="number" />
+                        <br/>
+                        <br/>
+                        <input id="num2" name="n2" placeholder="Enter second digit"  type="number" /><br/>
+                        <br/>
+                    
+                            <button id="add_btn" class="btn btn-outline-success"type="button"  onClick={this.addition}>+</button>
+                            <button id="sub_btn" class="btn btn-outline-info" type="button" onClick={this.subtraction}>-</button>
+                            <button id="multiply_btn" class="btn btn-outline-danger" type="button" onClick={this.multiplication}>*</button>
+                            <button id="divide_btn" class="btn btn-outline-warning" type="button" onClick={this.division}>/</button>
+                            <br/>
+                        
+                        <br/>
+                        <button id="data" class="btn btn-outline-dark" type="button"></button>
+                        <br/>
+                    </div>
+                );
+            }
+            addition() {
+                var digit1 = parseInt(document.getElementsByName("n1")[0].value);
+                var digit2 = parseInt(document.getElementsByName("n2")[0].value);
+        
+                document.getElementById("data").innerHTML =digit1+digit2 ;
+            }
+            subtraction() {
+                var digit1 = parseInt(document.getElementsByName("n1")[0].value);
+                var digit2 = parseInt(document.getElementsByName("n2")[0].value);
+        
+                document.getElementById("data").innerHTML =digit1 - digit2 ;
+            }
+            multiplication() {
+                var digit1 = parseInt(document.getElementsByName("n1")[0].value);
+                var digit2 = parseInt(document.getElementsByName("n2")[0].value);
+        
+                document.getElementById("data").innerHTML =digit1 * digit2 ;
+            }
+            division() {
+                var digit1 = parseInt(document.getElementsByName("n1")[0].value);
+                var digit2 = parseInt(document.getElementsByName("n2")[0].value);
+        
+                document.getElementById("data").innerHTML =digit1 / digit2 ;
+            }
+
+           
+        }
+        ReactDOM.render(<Calci />,document.querySelector("#simplecalculator"));
+    </script>
+</body>
+</html>
