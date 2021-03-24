@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<head>
+    <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script> 
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script> 
+    <title>Signin </title>
+
+    <link rel="stylesheet" href="welcome.css">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" rel="stylesheet"/>
+</head>
+
+<body>
+
+    <div id="login">
+
+        <div class="divGroup glass">
+          <div class="welcomeHeader">
+            <h1>Signin Page</h1>
+            <div id="root"></div>
+            <button class="glassBtn" id="data"></button>
+            
+      </div>
+
+
+      <script type="text/babel" >
+
+
+        class welcomepage extends React.Component{
+            render() {
+                return(
+
+                    <div id="link">
+                        <a href="Signin.html">Signin</a>
+
+                    </div>
+                );
+            }
+        }
+
+        ReactDOM.render(<welcomepage />,document.querySelector("#data"));
+        
+        class Data extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={
+                name :''
+                }
+
+                this.handleChange = this.handleChange.bind(this);
+                this.handleSubmit = this.handleSubmit.bind(this);
+
+            }
+            
+
+
+        render(){
+            return(
+
+        <form id="body">
+          
+            <input placeholder="Username" type="email" autocomplete="off" class="inputCustomStyle" onChange={this.handleChange}  value={this.state.value} required/>
+          
+            <input type="password" autocomplete="new-password"  class="inputCustomStyle" placeholder="password" />
+      
+            <div class="GlassButtons">
+            <button  class="glassBtn" onClick={this.handleSubmit}>Login</button>
+            <button class="glassBtn">Sign Up</button>
+            </div>
+          
+        </form>
+
+            );
+        }
+
+
+        handleChange(event) {
+            this.setState({value: event.target.value});
+        }
+
+        handleSubmit(event) {
+            alert('Welcome: ' + this.state.value );
+            event.preventDefault();
+        }
+
+      }
+
+      ReactDOM.render(<Data />,document.querySelector("#root"));
+           
+      </script>
+</body>
