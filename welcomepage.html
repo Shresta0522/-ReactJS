@@ -16,9 +16,10 @@
 
         <div class="divGroup glass">
           <div class="welcomeHeader">
-            <h1>Signin Page</h1>
-            <div id="root"></div>
-            <button class="glassBtn" id="data"></button>
+           
+            <div id="Signin"></div>
+            <div id="Signup"></div>
+            <!-- <button class="glassBtn" id="data"></button> -->
             
       </div>
 
@@ -26,30 +27,30 @@
       <script type="text/babel" >
 
 
-        class welcomepage extends React.Component{
-            render() {
-                return(
+        // class welcomepage extends React.Component{
+        //     render() {
+        //         return(
 
-                    <div id="link">
-                        <a href="Signin.html">Signin</a>
+        //             <div id="link">
+        //                 <a href="Signin.html">Signin</a>
 
-                    </div>
-                );
-            }
-        }
+        //             </div>
+        //         );
+        //     }
+        // }
 
-        ReactDOM.render(<welcomepage />,document.querySelector("#data"));
+        // ReactDOM.render(<welcomepage />,document.querySelector("#data"));
         
-        class Data extends React.Component{
+        class Signin extends React.Component{
             constructor(props){
                 super(props);
                 this.state={
-                name :''
-                }
+                name :'',
+                password:'',
+                message:''
+                };
 
-                this.handleChange = this.handleChange.bind(this);
-                this.handleSubmit = this.handleSubmit.bind(this);
-
+                
             }
             
 
@@ -57,35 +58,126 @@
         render(){
             return(
 
-        <form id="body">
+        <div id="body">
+
+            <h1 class="card-header">Signin Page</h1>
           
-            <input placeholder="Username" type="email" autocomplete="off" class="inputCustomStyle" onChange={this.handleChange}  value={this.state.value} required/>
+            <input placeholder="Username" type="text" id="name" autocomplete="off" class="inputCustomStyle" onChange={this.setname}  value={this.state.value} required/>
           
-            <input type="password" autocomplete="new-password"  class="inputCustomStyle" placeholder="password" />
+            <input onChange={this.password} type="password" id="password" autocomplete="new-password"  class="inputCustomStyle" placeholder="password" />
       
             <div class="GlassButtons">
-            <button  class="glassBtn" onClick={this.handleSubmit}>Login</button>
-            <button class="glassBtn">Sign Up</button>
+            <button  class="glassBtn" onClick={this.showMessage}>Signin</button>
+            <button class="glassBtn" onClick={this.details} >Sign Up</button>
+            <br/>
+            <br/>
+            
+
             </div>
+            <div>{this.state.message}</div>
           
-        </form>
+        </div>
 
             );
         }
 
+        setname = (event) => {
+            this.setState({name: event.target.value});      
+            console.log(this.state.name)       
 
-        handleChange(event) {
-            this.setState({value: event.target.value});
+            }
+
+        password=(event) =>{
+            this.setState({password:event.target.value})
         }
 
-        handleSubmit(event) {
-            alert('Welcome: ' + this.state.value );
-            event.preventDefault();
+        showMessage = () =>{
+
+                this.setState({
+                    message: <h2 id="hello" ><br/> Welcome {this.state.name}!!! </h2>                    
+                });
+
         }
 
+        details = () =>{
+                document.getElementById('Signin').style.display = 'none'
+                document.getElementById('Signup').style.display = 'block'
+                document.getElementById('name').value = ''
+                document.getElementById('password').value = ''
+
+            }
       }
+      
+      
 
-      ReactDOM.render(<Data />,document.querySelector("#root"));
-           
+      class Signup extends React.Component{
+          constructor(props){
+            super(props);
+            this.state = {
+              Uname: '',
+              Pwd: '',
+              mobilenum: '',
+              DOBirth: '',
+              msg: ''
+            }
+          }
+            render(){
+                return(
+                    <div id="su">
+                    
+                    <input class="inputCustomStyle" onChange={this.setName} type="text" id="Uname" placeholder="Enter Name" required/><br/>
+                    <input class="inputCustomStyle" onChange={this.setPwd} type="password" id="Pwd" placeholder="Password" required/><br/>
+                    <input class="inputCustomStyle" onChange={this.setmobilenum} type="text" id="mobilenum" placeholder="Contact no." required/><br/>                    
+                    <input  class="inputCustomStyle" type="date" id="birthday" name="birthday"/><br/><br/><br/>
+                    <div class="GlassButtons">
+                        <button class="glassBtn" onClick={this.showMessage} id="buttonup" name="buttonup">Sign Up</button><br/>
+                        <button class="glassBtn" onClick={this.goto} id="buttonin" name="buttonin">Sign In</button>   
+                        <div>{this.state.msg}</div>  
+                    </div>      
+                    
+                    </div>
+                );
+            }
+            
+            setName = (event) => {          
+              this.setState({Uname: event.target.value});         
+
+            }
+
+            setPwd = (event) => {
+              this.setState({Pwd: event.target.value});
+
+            }
+
+            setmobilenum = (event) => {
+              this.setState({mobilenum: event.target.value});
+
+            }
+
+            setDOBirth = (event) => {
+              this.setState({DOBirth: event.target.value});
+
+            }
+        
+            showMessage = () =>{
+                this.setState({
+                    msg: <h2 id="bye">Hi {this.state.Uname} thank you for signing up!</h2>
+                });
+            }
+
+            goto = () =>{
+                document.getElementById('Signin').style.display = 'block'
+                document.getElementById('Signup').style.display = 'none'
+                document.getElementById('Uname').value = ''
+                document.getElementById('Pwd').value = ''
+                document.getElementById('mobilenum').value = ''
+                document.getElementById('DOBirth').value = ''
+            }
+        }
+        
+        document.getElementById('Signup').style.display = 'none'
+
+        ReactDOM.render(<Signin />,document.querySelector("#Signin"));
+        ReactDOM.render(<Signup />, document.querySelector("#Signup"));
       </script>
 </body>
