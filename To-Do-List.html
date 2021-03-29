@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+    <head>
+        <title>
+
+        </title>
+        <script src="https://unpkg.com/react@16/umd/react.production.min.js"></script>
+        <script src="https://unpkg.com/react-dom@16/umd/react-dom.production.min.js"></script>
+        <script src="https://unpkg.com/babel-standalone@6.15.0/babel.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
+   
+    <style>
+        #size{
+            width:90%;
+            border:1px solid;
+
+            
+        }
+        .card{
+            background-color: cadetblue;
+        }
+        #body{
+            padding: 70px;
+
+            text-align: center;
+        }
+        #total{
+            
+            width:100%;
+        }
+    </style>
+   
+   
+   
+    </head>
+    <body>
+    <div id="mydiv" style="padding: 2%;"></div>
+    
+
+    <script type="text/babel">
+        class Hello extends React.Component{
+            constructor(props){
+                super(props);
+                this.state={
+                    tasks:[],
+                    input:"",
+                    index:-1
+                };
+            }
+            
+            render(){
+                // var result = tasks.length;
+                return(
+                    
+                    
+
+                <div id="body">
+
+                    <div class="card text-center">
+                        <div class="card-header">
+                            <h1>Tasks To-Do</h1> 
+                        </div>
+                        
+                            <h5 class="card-title">
+                                <div>
+                                    <input id="cleartext" onChange={this.handleChange.bind(this)} value={this.state.input}/>
+                                    <button onClick={this.addTask.bind(this)} > Add Task</button>  
+                                   
+                                    
+                                </div> 
+                            </h5>
+
+
+                            <div class="card-body">
+
+                                <table id="size"  class="table table-hover">
+                                    <tbody>
+                                       
+                                        <h2 id="total"> {this.state.tasks.length} To-Do-List </h2>
+                                        {this.state.tasks.map((task,index) => 
+                                        
+                                    <tr key={index}>
+                                        
+                                        <td class="vl"> {index+1}</td>
+                                        <td> {task}</td>
+                                        <td>
+                                        <button value={index} onClick={this.delete.bind(this)}>Delete</button>
+                                        </td>
+                                        <td>
+                                        <button  onClick={(event)=> this.edit(task, index)}>Edit</button> &nbsp; &nbsp; <button  onClick={this.update}>update</button>
+                                        </td>
+                                        <hr/>
+                                        </tr>
+                                        )}  
+                                       
+                                    </tbody>
+                                </table>      
+                                
+                            
+                            </div>
+        
+                    </div>
+                    
+                   
+                
+                </div>
+            
+                );
+            }
+
+            delete=(e)=>{
+                var index =e.target.value
+                var tasks_list= this.state.tasks.splice(index, 1);
+                this.setState({tasks: this.state.tasks});
+            }
+            remove =(index)=>{
+                const t = JSON.stringify(this.state.tasks[index]);
+                const tasks = this.state.tasks;
+                tasks.splice(index,1);
+                this.setState({tasks:tasks});			
+
+            }
+
+            edit = (event, index) => {
+			this.setState({input:this.state.tasks[index],index:index});
+            }
+            
+
+            update=()=>{
+                    var n=[...this.state.tasks]
+                    n[this.state.index]=this.state.input
+                    this.setState({
+                    tasks:n,
+                    input:""
+                    })
+                }
+            
+            handleChange=(event)=>{
+                // var input=event.target.value;
+
+                // this.setState({input:input})
+                this.setState({input:event.target.value});
+
+            }
+
+            
+
+            addTask=(event)=>{
+                if(this.state.input==""){
+				return;
+			}
+                this.setState(state=>({
+                    tasks:[...state.tasks,state.input],  
+                }))
+                var input=event.target.value="";
+                this.setState({input:input})
+               
+
+            }
+            
+            
+        }
+        
+        ReactDOM.render(<Hello/>, document.querySelector("#mydiv"));
+    
+    </script>
+    </body>
+</html>
